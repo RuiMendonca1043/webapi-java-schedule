@@ -1,19 +1,17 @@
-package com.barbearia.real.backend.service;
+package com.barbearia.real.backend.service.service;
 
 import com.barbearia.real.backend.model.service.ServiceRequest;
 import com.barbearia.real.backend.model.service.ServiceResponse;
 import com.barbearia.real.backend.persistence.repository.ServiceRepository;
 import org.apache.velocity.exception.ResourceNotFoundException;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class ServiceService implements IServiceService{
+public class ServiceService implements IServiceService {
     @Autowired
     private ServiceRepository repo;
     @Override

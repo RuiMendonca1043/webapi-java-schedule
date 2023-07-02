@@ -1,4 +1,4 @@
-package com.barbearia.real.backend.service;
+package com.barbearia.real.backend.service.service;
 
 import com.barbearia.real.backend.model.service.ServiceRequest;
 import com.barbearia.real.backend.model.service.ServiceResponse;

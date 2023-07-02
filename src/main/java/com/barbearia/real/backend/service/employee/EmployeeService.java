@@ -1,4 +1,4 @@
-package com.barbearia.real.backend.service;
+package com.barbearia.real.backend.service.employee;
 
 import com.barbearia.real.backend.model.employee.EmployeeRequest;
 import com.barbearia.real.backend.model.employee.EmployeeResponse;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class EmployeeService implements IEmployeeService{
+public class EmployeeService implements IEmployeeService {
     @Autowired
     private EmployeeRepository repo;
 

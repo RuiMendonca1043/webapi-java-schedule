@@ -2,8 +2,7 @@ package com.barbearia.real.backend.controller;
 
 import com.barbearia.real.backend.model.service.ServiceRequest;
 import com.barbearia.real.backend.model.service.ServiceResponse;
-import com.barbearia.real.backend.service.IServiceService;
-import com.barbearia.real.backend.service.ServiceService;
+import com.barbearia.real.backend.service.service.IServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

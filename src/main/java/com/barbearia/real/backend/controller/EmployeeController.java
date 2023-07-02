@@ -2,11 +2,8 @@ package com.barbearia.real.backend.controller;
 
 import com.barbearia.real.backend.model.employee.EmployeeRequest;
 import com.barbearia.real.backend.model.employee.EmployeeResponse;
-import com.barbearia.real.backend.persistence.entity.Employee;
-import com.barbearia.real.backend.service.IEmployeeService;
-import com.barbearia.real.backend.service.IServiceService;
+import com.barbearia.real.backend.service.employee.IEmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
