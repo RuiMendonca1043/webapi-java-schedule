@@ -15,6 +15,7 @@ import com.barbearia.real.backend.persistence.repository.ServiceRepository;
 import com.barbearia.real.backend.service.cliente.ClientService;
 import com.barbearia.real.backend.service.employee.EmployeeService;
 import com.barbearia.real.backend.service.service.ServiceService;
+import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,7 +44,12 @@ public class ScheduleService implements IScheduleService{
 
     @Override
     public ScheduleResponse create(ScheduleRequest req) {
-        return null;
+        Schedule s = createSchedule(req);
+        if (!isTimeSlotAvailable(s)){
+            return null;
+        }
+        scheduleRepository.save(s);
+        return createScheduleRes(s);
     }
 
     @Override
@@ -75,9 +81,15 @@ public class ScheduleService implements IScheduleService{
     }
     private Schedule createSchedule(ScheduleRequest req){
         Schedule s = new Schedule();
+        Client c = new Client();
         s.setTime(req.getTime());
-        s.setService();
-
+        s.setService(getService(req.getServiceId()));
+        s.setEmployee(getEmployee(req.getEmployeeId()));
+        c.setName(req.getClientReq().getName());
+        c.setEmail(req.getClientReq().getEmail());
+        c.setPhoneNumber(req.getClientReq().getPhoneNumber());
+        s.setClient(c);
+        return s;
     }
     private ServiceResponse createServiceRes(com.barbearia.real.backend.persistence.entity.Service s){
         ServiceResponse res = new ServiceResponse();
@@ -103,5 +115,14 @@ public class ScheduleService implements IScheduleService{
         res.setPhoneNumber(c.getPhoneNumber());
         return res;
     }
+    private com.barbearia.real.backend.persistence.entity.Service getService(String id){
+        return serviceRepository.findById(id).orElseThrow(()
+                -> new ResourceNotFoundException("Not Found Service with this id: "+id));
+    }
+    private Employee getEmployee(String id){
+        return employeeRepository.findById(id).orElseThrow(()
+                -> new ResourceNotFoundException("Not Found employee with this id: "+id));
+    }
+
 
 }
