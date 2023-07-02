@@ -9,19 +9,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class ScheduleResponse {
-    private LocalDate date;
     private LocalTime time;
     private ServiceResponse service;
     private EmployeeResponse employee;
     private ClientResponse client;
 
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
 
     public LocalTime getTime() {
         return time;

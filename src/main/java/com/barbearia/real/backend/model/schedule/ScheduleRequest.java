@@ -9,19 +9,10 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 public class ScheduleRequest {
-    private LocalDate date;
     private LocalTime time;
     private String serviceId;
     private String employeeId;
     private ClientRequest clientReq;
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
 
     public LocalTime getTime() {
         return time;

@@ -10,7 +10,6 @@ import java.time.LocalTime;
 public class Schedule {
     @Id
     private String id;
-    private LocalDate date;
     private LocalTime time;
     private Service service;
     private Employee employee;
@@ -22,14 +21,6 @@ public class Schedule {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
     }
 
     public LocalTime getTime() {
