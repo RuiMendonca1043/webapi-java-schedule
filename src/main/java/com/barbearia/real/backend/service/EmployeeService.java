@@ -35,7 +35,9 @@ public class EmployeeService implements IEmployeeService{
 
     @Override
     public EmployeeResponse create(EmployeeRequest req) {
-        return null;
+        Employee e = createEmployee(req);
+        repo.save(e);
+        return createResponse(e);
     }
 
     private EmployeeResponse createResponse(Employee e){
@@ -43,5 +45,10 @@ public class EmployeeService implements IEmployeeService{
         res.setId(e.getId());
         res.setName(e.getName());
         return res;
+    }
+    private Employee createEmployee(EmployeeRequest req){
+        Employee e = new Employee();
+        e.setName(req.getName());
+        return e;
     }
 }

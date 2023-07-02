@@ -1,5 +1,6 @@
 package com.barbearia.real.backend.controller;
 
+import com.barbearia.real.backend.model.employee.EmployeeRequest;
 import com.barbearia.real.backend.model.employee.EmployeeResponse;
 import com.barbearia.real.backend.persistence.entity.Employee;
 import com.barbearia.real.backend.service.IEmployeeService;
@@ -8,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +28,10 @@ public class EmployeeController {
     @GetMapping("/{id}")
     public ResponseEntity<EmployeeResponse> getById(@PathVariable String id){
         return ResponseEntity.ok(service.getById(id));
+    }
+
+    @PostMapping
+    public ResponseEntity<EmployeeResponse> create(@RequestBody EmployeeRequest req){
+        return ResponseEntity.ok(service.create(req));
     }
 }
