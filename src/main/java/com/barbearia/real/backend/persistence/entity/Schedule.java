@@ -4,13 +4,14 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Document
 public class Schedule {
     @Id
     private String id;
-    private LocalTime time;
+    private LocalDateTime dateTime;
     private Service service;
     private Employee employee;
     private Client client;
@@ -23,12 +24,12 @@ public class Schedule {
         this.id = id;
     }
 
-    public LocalTime getTime() {
-        return time;
+    public LocalDateTime getTime() {
+        return dateTime;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setTime(LocalDateTime time) {
+        this.dateTime = time;
     }
 
     public Service getService() {

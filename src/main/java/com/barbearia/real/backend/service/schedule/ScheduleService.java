@@ -19,7 +19,9 @@ import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,12 +36,31 @@ public class ScheduleService implements IScheduleService{
     private EmployeeRepository employeeRepository;
     @Override
     public ScheduleResponse getById(String id) {
-        return null;
+        Schedule s = scheduleRepository.findById(id).orElseThrow(()
+        -> new ResourceNotFoundException("Not Found Schedule with this id: "+id));
+        return createScheduleRes(s);
     }
 
     @Override
     public List<ScheduleResponse> getAll() {
-        return null;
+        List<Schedule> list = scheduleRepository.findAll();
+        List<ScheduleResponse> res = new ArrayList<>();
+        for (Schedule s:list) {
+            if (s.getTime().isAfter(LocalDateTime.now())){
+                res.add(createScheduleRes(s));
+            }
+        }
+        return res;
+    }
+    public List<ScheduleResponse> getAllByDay() {
+        List<Schedule> list = scheduleRepository.findAll();
+        List<ScheduleResponse> res = new ArrayList<>();
+        for (Schedule s:list) {
+            if (s.getTime().isAfter(LocalDateTime.now())){
+                res.add(createScheduleRes(s));
+            }
+        }
+        return res;
     }
 
     @Override
@@ -48,19 +69,32 @@ public class ScheduleService implements IScheduleService{
         if (!isTimeSlotAvailable(s)){
             return null;
         }
+        updateDataBase();
         scheduleRepository.save(s);
         return createScheduleRes(s);
     }
 
     @Override
     public ScheduleResponse delete(String id) {
-        return null;
+        Schedule s = scheduleRepository.findById(id).orElseThrow(()
+                -> new ResourceNotFoundException("Not Found Schedule with this id: "+id));
+        scheduleRepository.delete(s);
+        return createScheduleRes(s);
+    }
+    public void updateDataBase(){
+        List<ScheduleResponse> list = getAll();
+        for (ScheduleResponse r:
+                list) {
+            if (r.getDateTime().isBefore(LocalDateTime.now())){
+                delete(r.getId());
+            }
+        }
     }
 
     private boolean isTimeSlotAvailable(Schedule schedule) {
-        LocalTime targetTime = schedule.getTime();
-        LocalTime startTime = targetTime.minusMinutes(29);
-        LocalTime endTime = targetTime.plusMinutes(schedule.getService().getTime());
+        LocalDateTime targetTime = schedule.getTime();
+        LocalDateTime startTime = targetTime.minusMinutes(29);
+        LocalDateTime endTime = targetTime.plusMinutes(schedule.getService().getTime());
         List<Schedule> schedules = scheduleRepository.findAll();
         for (Schedule s : schedules) {
             if (!(s.getTime().isBefore(startTime) || s.getTime().isAfter(endTime))) {
@@ -73,7 +107,8 @@ public class ScheduleService implements IScheduleService{
 
     private ScheduleResponse createScheduleRes(Schedule schedule){
         ScheduleResponse res = new ScheduleResponse();
-        res.setTime(schedule.getTime());
+        res.setId(schedule.getId());
+        res.setDateTime(schedule.getTime());
         res.setService(createServiceRes(schedule.getService()));
         res.setEmployee(createEmployeeRes(schedule.getEmployee()));
         res.setClient(createClientRes(schedule.getClient()));

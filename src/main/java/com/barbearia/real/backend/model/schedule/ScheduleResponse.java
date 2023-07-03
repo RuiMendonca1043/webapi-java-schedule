@@ -6,21 +6,30 @@ import com.barbearia.real.backend.model.employee.EmployeeResponse;
 import com.barbearia.real.backend.model.service.ServiceResponse;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class ScheduleResponse {
-    private LocalTime time;
+    private String id;
+    private LocalDateTime dateTime;
     private ServiceResponse service;
     private EmployeeResponse employee;
     private ClientResponse client;
 
-
-    public LocalTime getTime() {
-        return time;
+    public String getId() {
+        return id;
     }
 
-    public void setTime(LocalTime time) {
-        this.time = time;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime time) {
+        this.dateTime = time;
     }
 
     public ServiceResponse getService() {
