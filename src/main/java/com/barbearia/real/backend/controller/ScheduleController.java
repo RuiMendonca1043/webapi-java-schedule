@@ -6,11 +6,10 @@ import com.barbearia.real.backend.service.schedule.ScheduleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -26,5 +25,10 @@ public class ScheduleController {
     @PostMapping
     public ResponseEntity<ScheduleResponse> create(@RequestBody ScheduleRequest req){
         return ResponseEntity.ok(service.create(req));
+    }
+    @GetMapping("/dia/{date}")
+    public ResponseEntity<List<ScheduleResponse>> getByDate(@PathVariable String date){
+        LocalDate byDate = LocalDate.parse(date);
+        return ResponseEntity.ok(service.getByDay(byDate));
     }
 }

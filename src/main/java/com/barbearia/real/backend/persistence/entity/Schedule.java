@@ -12,6 +12,7 @@ public class Schedule {
     @Id
     private String id;
     private LocalDateTime dateTime;
+    private LocalDate date;
     private Service service;
     private Employee employee;
     private Client client;
@@ -30,6 +31,7 @@ public class Schedule {
 
     public void setTime(LocalDateTime time) {
         this.dateTime = time;
+        this.date = time.toLocalDate();
     }
 
     public Service getService() {
@@ -54,5 +56,13 @@ public class Schedule {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public LocalDate getDate() {
+        return date;
     }
 }

@@ -3,6 +3,8 @@ package com.barbearia.real.backend.service.schedule;
 import com.barbearia.real.backend.model.schedule.ScheduleRequest;
 import com.barbearia.real.backend.model.schedule.ScheduleResponse;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IScheduleService {
@@ -10,4 +12,6 @@ public interface IScheduleService {
     List<ScheduleResponse> getAll();
     ScheduleResponse create(ScheduleRequest req);
     ScheduleResponse delete(String id);
+
+    List<ScheduleResponse> getByDay(LocalDate day);
 }

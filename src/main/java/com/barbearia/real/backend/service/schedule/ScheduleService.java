@@ -12,13 +12,11 @@ import com.barbearia.real.backend.persistence.repository.ClientRepository;
 import com.barbearia.real.backend.persistence.repository.EmployeeRepository;
 import com.barbearia.real.backend.persistence.repository.ScheduleRepository;
 import com.barbearia.real.backend.persistence.repository.ServiceRepository;
-import com.barbearia.real.backend.service.cliente.ClientService;
-import com.barbearia.real.backend.service.employee.EmployeeService;
-import com.barbearia.real.backend.service.service.ServiceService;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -81,6 +79,20 @@ public class ScheduleService implements IScheduleService{
         scheduleRepository.delete(s);
         return createScheduleRes(s);
     }
+
+    @Override
+    public List<ScheduleResponse> getByDay(LocalDate day) {
+        LocalDateTime start = day.atStartOfDay();
+        LocalDateTime end = day.atTime(LocalTime.MAX);
+        List<Schedule> schedules = scheduleRepository.findByDateTimeBetween(start,end);
+        List<ScheduleResponse> res = new ArrayList<>();
+        for (Schedule s:
+             schedules) {
+            res.add(createScheduleRes(s));
+        }
+        return res;
+    }
+
     public void updateDataBase(){
         List<ScheduleResponse> list = getAll();
         for (ScheduleResponse r:
